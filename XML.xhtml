@@ -1,0 +1,31 @@
+<xml xmlns="http://www.w3.org/1999/xhtml" collection="true">
+  <!-- 1. TRADE PARAMETERS -->
+  <block type="trade_definition" id="trade_params">
+    <field name="MARKET">synthetic_index</field>
+    <field name="SYMBOL">R_100</field>
+    <field name="TRADETYPE">both</field>
+    <field name="CURRENCY">USD</field>
+    <field name="AMOUNT">5</field>
+    <field name="DURATION">5</field>
+    <field name="DURATION_UNIT">t</field>
+  </block>
+
+  <!-- 2. BEFORE PURCHASE: OPEN TWO OPPOSITE POSITIONS -->
+  <block type="before_purchase" id="before_purchase_block">
+    <statement name="BEFOREPURCHASE_STACK">
+      <block type="purchase" id="buy_position">
+        <field name="PURCHASE_LIST">HIGH TICK</field>
+      </block>
+      <block type="purchase" id="sell_position">
+        <field name="PURCHASE_LIST">LOW TICK</field>
+      </block>
+    </statement>
+  </block>
+
+  <!-- 3. DURING PURCHASE: MONITOR AND CLOSE -->
+  <block type="during_purchase" id="during_purchase_block">
+    <statement name="DURING_PURCHASE_STACK">
+      <block type="trade_again" id="trade_again_block"></block>
+    </statement>
+  </block>
+</xml>
